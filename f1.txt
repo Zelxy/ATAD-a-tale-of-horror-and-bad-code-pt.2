@@ -1,0 +1,6 @@
+31/1/2016 
+manuel,m,100
+manuel,m,200
+diana,f,0
+rodrigo,m,123
+
