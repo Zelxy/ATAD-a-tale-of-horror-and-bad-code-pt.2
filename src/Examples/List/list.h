@@ -21,7 +21,7 @@ typedef struct {
 
 lista_elems_t* list_create();
 
-int list_destroy(lista_elems_t**);
+int list_destroy(lista_elems_t*);
 
 int list_add(lista_elems_t*, elem);
 

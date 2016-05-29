@@ -2,7 +2,7 @@
 
 lista_elems_t* list_create() {
 	lista_elems_t* list;
-	list = malloc(sizeof(struct listaE));
+	list = malloc(sizeof(lista_elems_t));
 	list->elements = calloc(100, sizeof(elem));
 	list->size = 0;
 	list->max_size = 100;
