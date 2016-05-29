@@ -2,37 +2,37 @@
 #define LIST_H
 #include <stdlib.h>
 
-//Definiçao de erros
+//Error definition
 #define OK 0
 #define NO_MEM 1
 #define OUT_OF_RANK 2
 #define NO_LIST 3
 #define NULL_PTR 4
 #define EMPTY_LIST 5
-#define CLIENTE_EXISTE 6
+#define CLIENT_EXISTS 6
 
 typedef int elem;
 
-struct listaE{
-    elem* elementos;
-    int nElems;
-    int maxSize;
-};
-typedef struct listaE lista_elems_t;
+typedef struct {
+	elem* elements;
+	int size;
+	int max_size;
+}lista_elems_t;
 
-lista_elems_t* createList();
+lista_elems_t* list_create();
 
-int destroyList(lista_elems_t**);
+int list_destroy(lista_elems_t**);
 
-int addList(lista_elems_t*,elem);
+int list_add(lista_elems_t*, elem);
 
-int setList(lista_elems_t*,unsigned int,elem,elem*);
+int list_set(lista_elems_t*, unsigned, elem, elem*);
 
-int getList(lista_elems_t*,unsigned int,elem*);
+int list_get(lista_elems_t*, unsigned, elem*);
 
-int sizeList(lista_elems_t*,unsigned int*);
+int list_size(lista_elems_t*, unsigned*);
 
-int isEmptyList(lista_elems_t*);
+int list_is_empty(lista_elems_t*);
 
-int elemExistList(lista_elems_t*,elem);
-#endif // LISTAelemS_H
+int list_elem_exists(lista_elems_t*, elem);
+
+#endif

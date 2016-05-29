@@ -2,9 +2,8 @@
 
 elem_t bst_get_element(bst_node_t* root, key_t key) {
 	bst_node_t* node = bst_search_node(root, key);
-	if(node)
-		return *node->value;
-	return (elem_t)0;
+	if (node) return *node->value;
+	return (elem_t) 0;
 }
 
 bst_node_t* bst_search_node(bst_node_t* root, key_t key) {
@@ -12,26 +11,26 @@ bst_node_t* bst_search_node(bst_node_t* root, key_t key) {
 		return root;
 	else if (key < root->key)
 		return bst_search_node(root->left, key);
-	else // key > node.key
+	else
+		// key > node.key
 		return bst_search_node(root->right, key);
 }
 
 void bst_insert(bst_node_t* root, key_t key, elem_t value) {
 	if (!root) { //Node does not exist
 		if (!(root = bst_node_create(key, value))) //Make one
-			return; //End if failed
+			return;//End if failed
 	} else if (key < root->key) //Less than this node
 		bst_insert(root->left, key, value);
-	else if (key > root->key){ //More than this node
+	else if (key > root->key) { //More than this node
 		bst_insert(root->right, key, value);
-	}else
+	} else
 		return;
 }
 
 bst_node_t* bst_node_create(key_t key, elem_t value) {
 	bst_node_t* node;
-	if (!(node = malloc(sizeof(bst_node_t))))
-		return NULL;
+	if (!(node = malloc(sizeof(bst_node_t)))) return NULL;
 
 	if (!(node->value = malloc(sizeof(elem_t)))) {
 		free(node);
@@ -44,9 +43,8 @@ bst_node_t* bst_node_create(key_t key, elem_t value) {
 	return node;
 }
 
-void bst_delete(bst_node_t* root, key_t key){
-	if (!root)
-		return;
+void bst_delete(bst_node_t* root, key_t key) {
+	if (!root) return;
 	bst_node_t* node = bst_search_node(root, key);
 	bst_node_delete(&node);
 }

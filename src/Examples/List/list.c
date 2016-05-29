@@ -1,72 +1,72 @@
 #include "list.h"
 
-lista_elems_t* createList()
-{
-    lista_elems_t* tmp_lista;
-    tmp_lista = malloc(sizeof(struct listaE));
-    tmp_lista->elementos = calloc(100,sizeof(elem));
-    tmp_lista->nElems = 0;
-    tmp_lista->maxSize = 100;
-    return tmp_lista;
+lista_elems_t* list_create() {
+	lista_elems_t* list;
+	list = malloc(sizeof(struct listaE));
+	list->elements = calloc(100, sizeof(elem));
+	list->size = 0;
+	list->max_size = 100;
+	return list;
 }
 
-int destroyList(lista_elems_t** lista)
-{
-    free((*lista)->elementos);
-    free(*lista);
-    *lista = NULL;
+int list_destroy(lista_elems_t* list) {
+	if (!list) {
+		return NO_LIST;
+	}
+	free(list->elements);
+	free(list);
+	return OK;
 }
 
-int addList(lista_elems_t* lista,elem e)
-{
-    if(lista == NULL) return NULL_PTR;
-    if(lista->nElems == lista->maxSize){
-        lista->maxSize *= 2;
-        if((lista->elementos = realloc(lista->elementos,lista->maxSize*sizeof(elem))) == NULL)return NO_MEM;
-    }
-    if(elemExistList(lista,e) == CLIENTE_EXISTE) return CLIENTE_EXISTE;
+int list_add(lista_elems_t* list, elem e) {
+	if (list == NULL) return NULL_PTR;
+	if (list->size == list->max_size) {
+		list->max_size *= 2;
+		if (!(list->elements = realloc(list->elements, list->max_size * sizeof(elem)))) return NO_MEM;
+	}
+	if (list_elem_exists(list, e) == CLIENT_EXISTS) return CLIENT_EXISTS;
 
-    lista->elementos[lista->nElems++] = e;
-    return OK;
+	list->elements[list->size++] = e;
+	return OK;
 }
 
-int getList(lista_elems_t* lista,unsigned int rank,elem* e){
-    if(lista == NULL) return NO_LIST;
-    if(e == NULL) return NULL_PTR;
-    if(rank<0 || rank>=lista->nElems) return OUT_OF_RANK;
-    *e = lista->elementos[rank];
-    return OK;
+int list_get(lista_elems_t* list, unsigned int rank, elem* e) {
+	if (list == NULL) return NO_LIST;
+	if (e == NULL) return NULL_PTR;
+	if (rank < 0 || rank >= list->size) return OUT_OF_RANK;
+	*e = list->elements[rank];
+	return OK;
 }
 
-int setList(lista_elems_t* lista,unsigned int rank, elem in, elem* out){
-    if(lista == NULL) return NO_LIST;
-    if(out == NULL || in == NULL) return NULL_PTR;
-    if(rank<0 || rank>=lista->nElems) return OUT_OF_RANK;
-    *out = lista->elementos[rank];
-    lista->elementos[rank] = in;
-    return OK;
+int list_set(lista_elems_t* list, unsigned int rank, elem in, elem* out) {
+	if (list == NULL) return NO_LIST;
+	if (out == NULL || in == NULL) return NULL_PTR;
+	if (rank < 0 || rank >= list->size) return OUT_OF_RANK;
+	*out = list->elements[rank];
+	list->elements[rank] = in;
+	return OK;
 }
 
-int sizeList(lista_elems_t* lista,unsigned int* size){
-    if(lista == NULL) return NO_LIST;
-    if(size == NULL) return NULL_PTR;
-    *size =  lista->nElems;
-    return OK;
+int list_size(lista_elems_t* lista, unsigned int* size) {
+	if (lista == NULL) return NO_LIST;
+	if (size == NULL) return NULL_PTR;
+	*size = lista->size;
+	return OK;
 }
 
-int isEmptyList(lista_elems_t* lista){
-    if(lista == NULL) return NO_LIST;
-    if(lista->nElems == 0) return EMPTY_LIST;
-    return OK;
+int list_is_empty(lista_elems_t* list) {
+	if (list == NULL) return NO_LIST;
+	if (list->size == 0) return EMPTY_LIST;
+	return OK;
 }
 
-int elemExistList(lista_elems_t* lista,elem e){
-    if(lista == NULL) return NO_LIST;
-    int i;
-    for(i = 0;i<lista->nElems;i++){ //verify if there isn't a element with the same value.
-        if(e == lista->elementos[i]){
-            return CLIENTE_EXISTE; //each member of the list has to be unique.
-        }
-    }
-    return OK;
+int list_elem_exists(lista_elems_t* list, elem e) {
+	if (list == NULL) return NO_LIST;
+	int i;
+	for (i = 0; i < list->size; i++) { //verify if there isn't a element with the same value.
+		if (e == list->elements[i]) {
+			return CLIENT_EXISTS; //each member of the list has to be unique.
+		}
+	}
+	return OK;
 }
