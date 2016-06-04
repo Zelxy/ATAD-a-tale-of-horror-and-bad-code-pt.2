@@ -57,4 +57,7 @@ char* io_filepath_from_stdio(const char* base_folder) {
 int io_file_exists(const char* path) {
 	return (access(path, F_OK) == -1) ? 0 : 1;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of eb5edce... Added sample parser
