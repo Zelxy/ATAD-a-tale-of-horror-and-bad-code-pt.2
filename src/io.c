@@ -85,3 +85,16 @@ char* io_filepath_from_stdio(const char* base_folder) {
 int io_file_exists(const char* path) {
 	return (access(path, F_OK) == -1) ? 0 : 1;
 }
+
+void io_read_purchases_sample(){
+	FILE* ficheiro;
+    ficheiro = fopen("f1.txt","r");
+    int dia,mes,ano;
+    char* nome = malloc(sizeof(char)*100);
+    char sexo;
+    int gasto;
+    while(fscanf(ficheiro,"%100[^,]%*c%c%*c%d\n",nome,&sexo,&gasto) != EOF){
+            printf("%s %c %d\n",nome,sexo,gasto);
+    }
+    fclose(ficheiro);
+}
