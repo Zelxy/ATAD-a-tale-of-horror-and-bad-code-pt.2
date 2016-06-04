@@ -8,9 +8,14 @@ int io_print_dir(const char *path) {
 		perror("Error");
 		return -1;
 	}
-	while ((entry = readdir(dir)))
-		if (entry->d_type != 4) //4 stands for directory it seems
-			puts(entry->d_name);
+	while ((entry = readdir(dir))) {
+#if defined _unix_ || defined linux
+		if (entry->d_type != 4) //4 stands for directory it seems, not sure about symlinks
+		puts(entry->d_name);
+#else//TODO distinguish files from folders on windows
+		puts(entry->d_name);
+#endif
+	}
 	closedir(dir);
 	return 0;
 }
@@ -23,21 +28,18 @@ void io_read_purchases(char* path) {
 	FILE *file = fopen(path, "r");
 	if (!file) {
 		puts("Error opening the file\n");
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
 
 	char name[100];
 	char gender;
 	int value;
 	int day, month, year;
-
 	int count = 0;
-	while ((read = getline(&line, &len, file)) != -1) {
-		printf("I've read: 	%s\n", line);
 
+	char line[64];
+	while (!fgets(line, sizeof line, file)) {
+		printf("I've read: 	%s\n", line);
 		if (!count) { //First line is the date
 			sscanf(line, "%2d/%d/%4d", &day, &month, &year);
 		} else if (count > 1000) {
