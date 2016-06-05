@@ -14,3 +14,4 @@ char* io_filepath_from_stdio(const char*);
 int io_file_exists(const char*);
 
 #endif /* EXAMPLES_PROJECT_IO_H_ */
+
