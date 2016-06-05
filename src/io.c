@@ -30,7 +30,7 @@ void io_read_purchases(char* path) {
 	int value;
 	int day, month, year;
 	fscanf("%d/%d/%d",&day,&month,&year);
-	printf("%d/%d/%d",day,month,year);
+	printf("%d/%d/%d",day,month,year); //Make list check this date
     while(fscanf(file,"%100[^,]%*c%c%*c%d\n",&name,&gender,&value) != EOF){
             printf("%s %c %d\n",name,gender,value);
     }
@@ -57,7 +57,4 @@ char* io_filepath_from_stdio(const char* base_folder) {
 int io_file_exists(const char* path) {
 	return (access(path, F_OK) == -1) ? 0 : 1;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of eb5edce... Added sample parser
