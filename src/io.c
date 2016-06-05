@@ -30,38 +30,15 @@ void io_read_purchases(char* path) {
 		puts("Error opening the file\n");
 		exit(EXIT_FAILURE);
 	}
-
 	char name[100];
 	char gender;
 	int value;
 	int day, month, year;
-	int count = 0;
-
-	char line[64];
-	while (!fgets(line, sizeof line, file)) {
-		printf("I've read: 	%s\n", line);
-		if (!count) { //First line is the date
-			sscanf(line, "%2d/%d/%4d", &day, &month, &year);
-		} else if (count > 1000) {
-			printf("Over 1k lines read, likely an infinite loop\n");
-			break;
-		} else {
-			//Replace commas with spaces
-			char *comma = strchr(line, ',');
-			if (!comma) { //Discard empty lines despite carriage return and line feed
-				break;
-			}
-			while (comma) {
-				*comma = ' ';
-				comma = strchr(++comma, ',');
-			}
-
-			sscanf(line, "%50s %c %d", name, &gender, &value);
-			//Add the purchase somewhere
-			//client_add_purchase(name, gender, value, day, month, year);
-		}
-		count++;
-	}
+	fscanf("%d/%d/%d",&day,&month,&year);
+	printf("%d/%d/%d",day,month,year); //Make list check this date
+    while(fscanf(file,"%100[^,]%*c%c%*c%d\n",&name,&gender,&value) != EOF){
+            printf("%s %c %d\n",name,gender,value);
+    }
 	fclose(file);
 }
 
@@ -85,3 +62,4 @@ char* io_filepath_from_stdio(const char* base_folder) {
 int io_file_exists(const char* path) {
 	return (access(path, F_OK) == -1) ? 0 : 1;
 }
+

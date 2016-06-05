@@ -15,9 +15,13 @@ typedef struct{
     int is_active;
 }client_t;
 
-client_t* client_create(char*,char,int,int,int,int);
+client_t client_create(char*,char,int,int,int,int);
 
 void client_print(client_t*);
 
+void client_update_active(client_t*,int,int,int);
+
+
 
 #endif // CLIENT_H
+
