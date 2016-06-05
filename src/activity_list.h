@@ -1,3 +1,5 @@
+//List of client activity.
+
 #ifndef ACTIVITY_LIST_H
 #define ACTIVITY_LIST_H
 #include <stdlib.h>
@@ -26,18 +28,18 @@ typedef struct {
 
 activity_list_t* activity_list_create();
 
-int activity_list_destroy(activity_list_t*);
+int activitylst_destroy(activity_list_t*);
 
-int activity_list_add(activity_list_t*, activity_t);
+int activitylst_add(activity_list_t*, activity_t);
 
-int activity_list_set(activity_list_t*, unsigned, activity_t, activity_t*);
+int activitylst_set(activity_list_t*, unsigned, activity_t, activity_t*);
 
-int activity_list_get(activity_list_t*, unsigned, activity_t*);
+int activitylst_get(activity_list_t*, unsigned, activity_t*);
 
-int activity_list_size(activity_list_t*, unsigned*);
+int activitylst_size(activity_list_t*, unsigned*);
 
-int activity_list_is_empty(activity_list_t*);
+int activitylst_is_empty(activity_list_t*);
 
-int activity_list_elem_exists(activity_list_t*, activity_t);
+int activitylst_elem_exists(activity_list_t*, activity_t);
 
 #endif
