@@ -69,7 +69,8 @@ char* io_filepath_from_stdio(const char* base_folder) {
 	char input[256];
 	fgets(input, 256, stdin);
 
-	char location[256] = "\0";
+	char *location = malloc(sizeof(char)*256);
+	*location = '\0';
 	strcat(location, base_folder);
 	if (location[strlen(location) - 1] != '/') {
 		strcat(location, "/");
@@ -77,6 +78,7 @@ char* io_filepath_from_stdio(const char* base_folder) {
 	strcat(location, input);
 	if (io_file_exists(location)) {
 		printf("\"%s\" is not a valid file path!", location);
+		free(location);
 		return NULL;
 	}
 	return location;
