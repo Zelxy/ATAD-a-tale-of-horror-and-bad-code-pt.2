@@ -18,12 +18,19 @@ client_t client_create(char* name, char gender, int spent, int day, int month, i
     return client;
 }
 
-void client_print(client_t* client){
-     char* teste = calloc(200,sizeof(char));
-     strftime(teste,sizeof(char)*200,"%d/%m/%Y",client->last_visit);
-     printf("%s\n",client->name);
-     printf("%s\n",teste);
-     //double dif = difftime(y,x)/(60*60*24);
+void client_print(client_t client){
+     printf("%d - %s",client.id,client.name);
+     if(client.gender == 'm'){
+        printf(", masculino");
+     } else{
+         printf(", feminino");
+     }
+     printf("%dEuros, estado",client.spent);
+     if(client.is_active){
+        printf(" inativo\n");
+     } else{
+        printf(" ativo\n");
+     }
 }
 
 void client_update_active(client_t* client,int day,int month,int year){
