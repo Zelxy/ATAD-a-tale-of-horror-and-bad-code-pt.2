@@ -1,7 +1,9 @@
-#ifndef CLIENT_LIST_H
-#define CLIENT_LIST_H
+#ifndef LIST_H
+#define LIST_H
+
 #include <stdlib.h>
 #include "client.h"
+
 //Error definition
 #define OK 0
 #define NO_MEM 1

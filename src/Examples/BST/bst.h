@@ -1,10 +1,3 @@
-/*
- * bst.h
- *
- *  Created on: May 28, 2016
- *      Author: claudio
- */
-
 #ifndef BST_BST_H_
 #define BST_BST_H_
 
@@ -22,6 +15,7 @@ struct bst_node{
 	elem_t*	value;
 };
 
+elem_t bst_get_element(bst_node_t*, key_t);
 bst_node_t* bst_search_node(bst_node_t*, key_t);//Searches tree for the node with the key
 bst_node_t* bst_node_create(key_t, elem_t);//initializes a node
 void bst_delete(bst_node_t*, key_t);//Deletes the node with the key

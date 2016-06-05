@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "io.h"
+#include "ui.h"
 
 #define DEFAULT_INPUT_DIR "./input/"
 
