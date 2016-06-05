@@ -19,14 +19,14 @@ client_t client_create(char* name, char gender, int spent, int day, int month, i
 }
 
 void client_print(client_t client){
-     printf("%d - %s",client.id,client.name);
+     printf("%d - %s ",client.id,client.name);
      if(client.gender == 'm'){
         printf(", masculino");
      } else{
-         printf(", feminino");
+         printf(", feminino%c",client.gender);
      }
      printf("%dEuros, estado",client.spent);
-     if(client.is_active){
+     if(!client.is_active){
         printf(" inativo\n");
      } else{
         printf(" ativo\n");
