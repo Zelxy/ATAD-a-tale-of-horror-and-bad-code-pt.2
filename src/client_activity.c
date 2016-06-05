@@ -1,9 +1,9 @@
 #include "client_activity.h"
 
-activity_list_t clientactbst_get_client_activity(client_bst_node_t* root, char* key) {
+activity_list_t* clientactbst_get_client_activity(client_bst_node_t* root, char* key) {
 	client_bst_node_t* node = clientactbst_search_node(root, key);
-	if (node) return *node->activities;
-	return (activity_list_t) 0;
+	if (node) return node->activities;
+	return NULL;
 }
 
 client_bst_node_t* clientactbst_search_node(client_bst_node_t* root, char* key) {

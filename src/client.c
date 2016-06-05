@@ -2,7 +2,7 @@
 
 client_t client_create(char* name, char gender, int spent, int day, int month, int year){
     client_t client;
-
+    static  int last_id = 1;
     client.id = last_id++;//TODO
     client.gender = gender;
     client.name = name;

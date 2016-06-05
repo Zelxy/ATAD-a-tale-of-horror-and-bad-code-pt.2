@@ -3,7 +3,6 @@
 #include "time.h"
 #include <stdlib.h>
 #include <stdio.h>
-static  int last_id = 1;
 
 
 typedef struct{
