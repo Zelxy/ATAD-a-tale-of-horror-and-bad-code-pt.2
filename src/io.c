@@ -34,9 +34,9 @@ void io_read_purchases(char* path) {
 	char gender;
 	int value;
 	int day, month, year;
-	fscanf("%d/%d/%d",&day,&month,&year);
+	fscanf(file, "%d/%d/%d",&day,&month,&year);
 	printf("%d/%d/%d",day,month,year); //Make list check this date
-    while(fscanf(file,"%100[^,]%*c%c%*c%d\n",&name,&gender,&value) != EOF){
+    while(fscanf(file,"%100[^,]%*c%c%*c%d\n",name,&gender,&value) != EOF){
             printf("%s %c %d\n",name,gender,value);
     }
 	fclose(file);
