@@ -7,7 +7,7 @@ void ui_menu() {
 				"B - Generate report\n"
 				"C - Print records tree\n"
 				"D - Print clients list\n"
-				"E - Exit");
+				"E - Exit\n");
 		scanf("%c", &option);
 		getchar();//Discard line feed
 	} while (tolower(option) < 'a' || tolower(option) > 'e');

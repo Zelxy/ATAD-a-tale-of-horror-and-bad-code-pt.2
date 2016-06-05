@@ -8,9 +8,14 @@ int io_print_dir(const char *path) {
 		perror("Error");
 		return -1;
 	}
-	while ((entry = readdir(dir)))
-//		if (entry->d_type != 4) //4 stands for directory it seems
-			puts(entry->d_name);
+	while ((entry = readdir(dir))) {
+#if defined _unix_ || defined linux
+		if (entry->d_type != 4) //4 stands for directory it seems, not sure about symlinks
+		puts(entry->d_name);
+#else//TODO distinguish files from folders on windows
+		puts(entry->d_name);
+#endif
+	}
 	closedir(dir);
 	return 0;
 }
@@ -23,7 +28,7 @@ void io_read_purchases(char* path) {
 	FILE *file = fopen(path, "r");
 	if (!file) {
 		puts("Error opening the file\n");
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 	char name[100];
 	char gender;
@@ -41,7 +46,8 @@ char* io_filepath_from_stdio(const char* base_folder) {
 	char input[256];
 	fgets(input, 256, stdin);
 
-	char location[256] = "\0";
+	char *location = malloc(sizeof(char)*256);
+	*location = '\0';
 	strcat(location, base_folder);
 	if (location[strlen(location) - 1] != '/') {
 		strcat(location, "/");
@@ -49,6 +55,7 @@ char* io_filepath_from_stdio(const char* base_folder) {
 	strcat(location, input);
 	if (io_file_exists(location)) {
 		printf("\"%s\" is not a valid file path!", location);
+		free(location);
 		return NULL;
 	}
 	return location;
