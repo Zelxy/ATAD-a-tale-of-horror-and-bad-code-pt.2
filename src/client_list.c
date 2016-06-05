@@ -19,7 +19,7 @@ int clientlst_destroy(lista_elems_t* list) {
 }
 
 int clientlst_add(lista_elems_t* list, elem e) {
-	if (!list) NO_LIST;
+	if (!list) return NO_LIST;
 	if (list->size == list->max_size) {
 		list->max_size *= 2;
 		if (!(list->elements = realloc(list->elements, list->max_size * sizeof(elem)))) return NO_MEM;

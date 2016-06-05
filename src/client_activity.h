@@ -1,11 +1,11 @@
+// Client activity binary search tree
+
 #ifndef CLIENT_BST_H_
 #define CLIENT_BST_H_
 
 #include <stdlib.h>
 #include <string.h>
-#include "client_activity.h"
-
-typedef int activity_list_t;
+#include "activity_list.h"
 
 typedef struct bst_node client_bst_node_t;
 struct bst_node{
@@ -15,7 +15,7 @@ struct bst_node{
 	char*	key;
 	activity_list_t*	activities;
 };
-activity_list_t clientactbst_get_client_activity(client_bst_node_t*, char*);
+activity_list_t* clientactbst_get_client_activity(client_bst_node_t*, char*);
 client_bst_node_t* clientactbst_search_node(client_bst_node_t*, char*);//Searches tree for the node with the key
 client_bst_node_t* clientactbst_node_create(char*, activity_list_t);//initializes a node
 void clientactbst_delete(client_bst_node_t*, char*);//Deletes the node with the key
