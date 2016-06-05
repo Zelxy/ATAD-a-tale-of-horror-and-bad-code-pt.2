@@ -69,7 +69,7 @@ int clientlst_elem_exists(lista_elems_t* list, char* name) {
 	return OK;
 }
 
-void clientlst_update_active(lista_elems_t* list,int day,int month,int year){
+int clientlst_update_active(lista_elems_t* list,int day,int month,int year){
     if (!list) return NO_LIST;
     int i;
     client_t aux;
@@ -77,18 +77,21 @@ void clientlst_update_active(lista_elems_t* list,int day,int month,int year){
         clientlst_get(list,i,&aux);
         client_update_active(&aux,day,month,year);
     }
+    return OK;
 }
 
-void client_visit_store(lista_elems_t* list,char* name,int value,char gender,int day,int month, int year){
+int client_visit_store(lista_elems_t* list,char* name,int value,char gender,int day,int month, int year){
+    if(!list) return NO_LIST;
     if(clientlst_elem_exists(list,name)==CLIENT_EXISTS){
-        //add event
-        //verify if still active
+       //TODO process visits
     } else{
         clientlst_add(list,client_create(name,gender,value,day,month,year));
+        //TODO register visit
     }
+    return OK;
 }
 
-void clientlst_draw(lista_elems_t* list){
+int clientlst_draw(lista_elems_t* list){
     if(!list) return NO_LIST;
     int i;
     client_t aux;
@@ -96,5 +99,6 @@ void clientlst_draw(lista_elems_t* list){
         clientlst_get(list,i,&aux);
         client_print(aux);
     }
+    return OK;
 }
 
