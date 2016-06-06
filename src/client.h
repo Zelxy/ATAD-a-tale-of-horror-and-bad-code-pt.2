@@ -13,13 +13,14 @@ typedef struct{
     int spent;
     struct tm *last_visit;
     int is_active;
+    int visits;
 }client_t;
 
 client_t client_create(char*,char,int);
 
 void client_print(client_t*);
 
-void client_update_active(client_t*,int,int,int);
+void client_update_active(client_t*);
 
 #endif // CLIENT_H
 

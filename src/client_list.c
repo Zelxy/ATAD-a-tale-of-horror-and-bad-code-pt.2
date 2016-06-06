@@ -72,13 +72,13 @@ int clientlst_elem_exists(clientlst_t* list, char* name) {
 	return (clientlst_rank_lookup(list, name) > -1) ? 1 : 0;
 }
 
-int clientlst_update_active(clientlst_t* list, int day, int month, int year) {
+int clientlst_update_active(clientlst_t* list) {
 	if (!list) return NO_LIST;
 	int i;
 	client_t* aux;
 	for (i = 0; i < list->size; i++) {
 		aux = clientlst_get(list, i);
-		client_update_active(aux, day, month, year);
+		client_update_active(aux);
 	}
 	return OK;
 }
