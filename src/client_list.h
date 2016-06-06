@@ -39,7 +39,7 @@ int clientlst_elem_exists(clientlst_t*, char*);
 
 int clientlst_update_active(clientlst_t*,int,int,int);
 
-int client_visit_store(clientlst_t*,char*,int,char,int,int,int);
+int client_visit_store(clientlst_t*,char*,int,char);
 
 int clientlst_draw(clientlst_t*);
 

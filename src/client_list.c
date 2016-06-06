@@ -81,7 +81,7 @@ int clientlst_update_active(clientlst_t* list,int day,int month,int year){
     return OK;
 }
 
-int client_visit_store(clientlst_t* list,char* name,int value,char gender,int day,int month, int year){
+int client_visit_store(clientlst_t* list,char* name,int value,char gender){
     if(!list) return NO_LIST;
     if(clientlst_elem_exists(list,name)==CLIENT_EXISTS){
        //TODO process visits
