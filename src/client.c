@@ -1,32 +1,27 @@
 #include "client.h"
 
-struct tm *last_visit;
+struct tm today;
 
 client_t client_create(char* name, char gender, int spent) {
 	static int last_id = 1;
 	client_t client;
 	client.id = last_id++;
 	client.gender = gender;
-	client.name = name;
+	client.name = malloc(strlen(name)*sizeof(char)+1);
+	strcpy(client.name, name);
 	client.spent = spent;
 	client.is_active = 1;
 	client.last_visit = malloc(sizeof(struct tm));
-	*client.last_visit = *last_visit;
+	*client.last_visit = today;
 	return client;
 }
 
-void client_print(client_t client) {
-	printf("%d - %s ", client.id, client.name);
-	if (client.gender == 'm')
-		printf(", masculino");
-	else
-		printf(", feminino%c", client.gender);
+void client_print(client_t *client) {
+	printf("%d - %10s", client->id, client->name);
+	client->gender == 'm' ? printf(", homem. "): printf(", mulher.");
 
-	printf("%dEuros, estado", client.spent);
-	if (client.is_active)
-		printf(" ativo\n");
-	else
-		printf(" inativo\n");
+	printf("%5d€, estado", client->spent);
+	client->is_active ? printf(" ativo\n") : printf(" inativo\n");
 }
 
 void client_update_active(client_t* client, int day, int month, int year) {//FIXME time
