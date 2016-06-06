@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef CLIENT_LIST_H
+#define CLIENT_LIST_H
 
 #include <stdlib.h>
 #include <string.h>
@@ -14,35 +14,34 @@
 #define EMPTY_LIST 5
 #define CLIENT_EXISTS 6
 
-typedef client_t elem;
 
 typedef struct {
-	elem* elements;
+	client_t* elements;
 	int size;
 	int max_size;
-}lista_elems_t;
+}clientlst_t;
 
-lista_elems_t* clientlst_create();
+clientlst_t* clientlst_create();
 
-int clientlst_destroy(lista_elems_t*);
+int clientlst_destroy(clientlst_t*);
 
-int clientlst_add(lista_elems_t*, elem);
+int clientlst_add(clientlst_t*, client_t);
 
-int clientlst_set(lista_elems_t*, unsigned, elem, elem*);
+int clientlst_set(clientlst_t*, unsigned, client_t, client_t*);
 
-int clientlst_get(lista_elems_t*, unsigned, elem*);
+int clientlst_get(clientlst_t*, unsigned, client_t*);
 
-int clientlst_size(lista_elems_t*, unsigned*);
+int clientlst_size(clientlst_t*, unsigned*);
 
-int clientlst_is_empty(lista_elems_t*);
+int clientlst_is_empty(clientlst_t*);
 
-int clientlst_elem_exists(lista_elems_t*, char*);
+int clientlst_elem_exists(clientlst_t*, char*);
 
-int clientlst_update_active(lista_elems_t*,int,int,int);
+int clientlst_update_active(clientlst_t*,int,int,int);
 
-int client_visit_store(lista_elems_t*,char*,int,char,int,int,int);
+int client_visit_store(clientlst_t*,char*,int,char,int,int,int);
 
-int clientlst_draw(lista_elems_t*);
+int clientlst_draw(clientlst_t*);
 
 #endif
 
