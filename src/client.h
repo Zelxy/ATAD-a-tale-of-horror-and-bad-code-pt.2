@@ -1,9 +1,9 @@
 #ifndef CLIENT_H
 #define CLIENT_H
-#include "time.h"
+#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
-static int last_id = 0;
+#include <string.h>
 
 
 typedef struct{
@@ -15,9 +15,11 @@ typedef struct{
     int is_active;
 }client_t;
 
-client_t* client_create(char*,char,int,int,int,int);
+client_t client_create(char*,char,int);
 
 void client_print(client_t*);
 
+void client_update_active(client_t*,int,int,int);
 
 #endif // CLIENT_H
+
