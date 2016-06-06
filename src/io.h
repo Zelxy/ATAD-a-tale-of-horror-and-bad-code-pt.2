@@ -5,9 +5,10 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-//#include "client.h"
 #include <unistd.h>
 #include <dirent.h>
+#include "shared_adts.h"
+#include "client_list.h"
 
 int io_print_dir(const char*);
 void io_read_purchases(char*);
