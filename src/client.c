@@ -13,7 +13,7 @@ client_t client_create(char* name, char gender, int spent) {
 	client.is_active = 1;
 	client.last_visit = malloc(sizeof(struct tm));
 	*client.last_visit = today;
-	client.visits = 0;
+	client.visits = 1;
 	return client;
 }
 

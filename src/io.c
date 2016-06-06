@@ -56,8 +56,9 @@ void io_read_purchases(char* path) {
 	}
 	printf("Data alterada para: %d/%d/%d\n",day,month,year);
 	clientlst_update_active(&client_list);
+	char *last_name = malloc(100*sizeof(char) + 100);
     while(fscanf(file," %100[^,]%*c%c%*c%d\n",name,&gender,&value) != EOF){
-            clientlst_add_store_visit(&client_list,name,value,gender);
+            clientlst_add_store_visit(&client_list,name,value,gender,last_name);
     }
     clientlst_draw(&client_list);
 	fclose(file);

@@ -83,7 +83,7 @@ int clientlst_update_active(clientlst_t* list) {
 	return OK;
 }
 
-int clientlst_add_store_visit(clientlst_t* list, char* name, int value, char gender) {
+int clientlst_add_store_visit(clientlst_t* list, char* name, int value, char gender,char* last_name) {
 	if (!list) return NO_LIST;
 	int rank = clientlst_rank_lookup(list, name);
 	if (rank == -1) {
@@ -95,8 +95,14 @@ int clientlst_add_store_visit(clientlst_t* list, char* name, int value, char gen
 			fprintf(stderr, "Inconsistência encontrada na lista de clientes!");
 		*client->last_visit = today;
 		client->spent += value;
+		if(strcmp(last_name,name)){
+            client->visits += 1;
+            printf("%s visitou a loja! %d\n",client->name,client->visits);
+		}
+
 		//TODO Add to activity tree;
 	}
+	strcpy(last_name,name);
 	return OK;
 }
 
