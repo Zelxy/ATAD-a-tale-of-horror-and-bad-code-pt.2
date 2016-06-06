@@ -40,7 +40,7 @@ int list_get(lista_elems_t* list, unsigned int rank, elem* e) {
 
 int list_set(lista_elems_t* list, unsigned int rank, elem in, elem* out) {
 	if (list == NULL) return NO_LIST;
-	if (out == NULL || in == NULL) return NULL_PTR;
+	if (!out) return NULL_PTR;
 	if (rank < 0 || rank >= list->size) return OUT_OF_RANK;
 	*out = list->elements[rank];
 	list->elements[rank] = in;
