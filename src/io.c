@@ -1,6 +1,7 @@
 #include "io.h"
-
+#include "shared_adts.h"
 struct tm *last_visit;
+clientlst_t client_list;
 
 int io_print_dir(const char *path) {
 	struct dirent *entry;
@@ -43,8 +44,9 @@ void io_read_purchases(char* path) {
 	last_visit->tm_year = year;
 	printf("Data alterada para: %d/%d/%d",day,month,year);
     while(fscanf(file,"%100[^,]%*c%c%*c%d\n",name,&gender,&value) != EOF){
-            printf("%s %c %d\n",name,gender,value);
+            client_visit_store(&client_list,name,value,gender);
     }
+    clientlst_draw(&client_list);
 	fclose(file);
 }
 
