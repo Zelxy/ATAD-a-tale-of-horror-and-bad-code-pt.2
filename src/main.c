@@ -12,6 +12,7 @@ extern struct tm today;
 
 
 clientlst_t client_list;
+clientactbst_node_t client_activity_bst;
 
 int main(int argc, char **argv){
 	//It starts at 31/1/2016
@@ -26,7 +27,9 @@ int main(int argc, char **argv){
 
 	client_list.elements = calloc(100, sizeof(client_t));
 	client_list.max_size = 100;
+	client_activity_bst.root = NULL;
 
 	ui_menu();
 	free(client_list.elements);
+	return 0;
 }

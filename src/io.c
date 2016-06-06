@@ -43,7 +43,8 @@ void io_read_purchases(char* path) {
 	today.tm_year = year;
 	printf("Data alterada para: %d/%d/%d\n",day,month,year);
     while(fscanf(file," %100[^,]%*c%c%*c%d\n",name,&gender,&value) != EOF){
-            clientlst_add_store_visit(&client_list,name,value,gender);
+            clientlst_add_store_visit(
+            		&client_list, &client_activity_bst,name,value,gender);
     }
     clientlst_draw(&client_list);
 	fclose(file);

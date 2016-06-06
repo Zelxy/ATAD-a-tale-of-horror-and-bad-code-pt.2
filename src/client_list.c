@@ -1,6 +1,7 @@
 #include "client_list.h"
 
 extern struct tm today;
+clientactbst_node_t client_activity_bst;
 
 clientlst_t* clientlst_create() {
 	clientlst_t* list;
@@ -83,20 +84,20 @@ int clientlst_update_active(clientlst_t* list, int day, int month, int year) {
 	return OK;
 }
 
-int clientlst_add_store_visit(clientlst_t* list, char* name, int value, char gender) {
+int clientlst_add_store_visit(clientlst_t* list, clientactbst_node_t* activity_bst, char* name, int value, char gender) {
 	if (!list) return NO_LIST;
 	int rank = clientlst_rank_lookup(list, name);
 	if (rank == -1) {
 		clientlst_add(list, client_create(name, gender, value));
-		//TODO Add to activity tree;
 	} else {
 		client_t* client = clientlst_get(list, rank);
 		if (!client)
 			fprintf(stderr, "Inconsistência encontrada na lista de clientes!");
 		*client->last_visit = today;
 		client->spent += value;
-		//TODO Add to activity tree;
 	}
+
+	clientactbst_add_store_visit(&client_activity_bst, name, value);
 	return OK;
 }
 
