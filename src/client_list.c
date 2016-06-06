@@ -1,5 +1,7 @@
 #include "client_list.h"
 
+extern struct tm today;
+
 clientlst_t* clientlst_create() {
 	clientlst_t* list;
 	list = malloc(sizeof(clientlst_t));
@@ -30,17 +32,14 @@ int clientlst_add(clientlst_t* list, client_t e) {
 	return OK;
 }
 
-int clientlst_get(clientlst_t* list, unsigned int rank, client_t* e) {
-	if (!list) return NO_LIST;
-	if (!e) return 4;
-	if (rank < 0 || rank >= list->size) return OUT_OF_RANK;
-	*e = list->elements[rank];
-	return OK;
+client_t* clientlst_get(clientlst_t* list, unsigned rank) {
+	if (!list || rank < 0 || rank >= list->size) return NULL;
+	return list->elements+rank;
 }
 
 int clientlst_set(clientlst_t* list, unsigned int rank, client_t in, client_t* out) {
 	if (!list) return NO_LIST;
-	if (!out ) return NULL_PTR;
+	if (!out) return NULL_PTR;
 	if (rank < 0 || rank >= list->size) return OUT_OF_RANK;
 	*out = list->elements[rank];
 	list->elements[rank] = in;
@@ -59,46 +58,55 @@ int clientlst_is_empty(clientlst_t* list) {
 	return OK;
 }
 
+int clientlst_rank_lookup(clientlst_t* list, char* name) {
+	for (int i = 0; i < list->size; i++) { //verify if there isn't a element with the same value.
+		if (!strcmp(name, list->elements[i].name)) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 int clientlst_elem_exists(clientlst_t* list, char* name) {
 	if (!list) return NO_LIST;
+	return (clientlst_rank_lookup(list, name) > -1) ? 1 : 0;
+}
+
+int clientlst_update_active(clientlst_t* list, int day, int month, int year) {
+	if (!list) return NO_LIST;
 	int i;
-	for (i = 0; i < list->size; i++) { //verify if there isn't a element with the same value.
-		if (!strcmp(name,list->elements[i].name)) {
-			return CLIENT_EXISTS; //each member of the list has to be unique.
-		}
+	client_t* aux;
+	for (i = 0; i < list->size; i++) {
+		aux = clientlst_get(list, i);
+		client_update_active(aux, day, month, year);
 	}
 	return OK;
 }
 
-int clientlst_update_active(clientlst_t* list,int day,int month,int year){
-    if (!list) return NO_LIST;
-    int i;
-    client_t aux;
-    for(i=0;i<list->size;i++){
-        clientlst_get(list,i,&aux);
-        client_update_active(&aux,day,month,year);
-    }
-    return OK;
+int clientlst_add_store_visit(clientlst_t* list, char* name, int value, char gender) {
+	if (!list) return NO_LIST;
+	int rank = clientlst_rank_lookup(list, name);
+	if (rank == -1) {
+		clientlst_add(list, client_create(name, gender, value));
+		//TODO Add to activity tree;
+	} else {
+		client_t* client = clientlst_get(list, rank);
+		if (!client)
+			fprintf(stderr, "Inconsistência encontrada na lista de clientes!");
+		*client->last_visit = today;
+		client->spent += value;
+		//TODO Add to activity tree;
+	}
+	return OK;
 }
 
-int client_visit_store(clientlst_t* list,char* name,int value,char gender){
-    if(!list) return NO_LIST;
-    if(clientlst_elem_exists(list,name)==CLIENT_EXISTS){
-       //TODO process visits
-    } else{
-        clientlst_add(list,client_create(name,gender,value));
-        //TODO register visit
-    }
-    return OK;
-}
-
-int clientlst_draw(clientlst_t* list){
-    if(!list) return NO_LIST;
-    client_t aux;
-    for(int i=0; i<list->size; i++){
-        clientlst_get(list,i,&aux);
-        client_print(aux);
-    }
-    return OK;
+int clientlst_draw(clientlst_t* list) {
+	if (!list) return NO_LIST;
+	client_t *aux;
+	for (int i = 0; i < list->size; i++) {
+		aux = clientlst_get(list, i);
+		client_print(aux);
+	}
+	return OK;
 }
 

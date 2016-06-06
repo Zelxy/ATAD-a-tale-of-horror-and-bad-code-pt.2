@@ -29,17 +29,19 @@ int clientlst_add(clientlst_t*, client_t);
 
 int clientlst_set(clientlst_t*, unsigned, client_t, client_t*);
 
-int clientlst_get(clientlst_t*, unsigned, client_t*);
+client_t* clientlst_get(clientlst_t*, unsigned);
 
 int clientlst_size(clientlst_t*, unsigned*);
 
 int clientlst_is_empty(clientlst_t*);
 
+int clientlst_rank_lookup(clientlst_t*, char*);
+
 int clientlst_elem_exists(clientlst_t*, char*);
 
 int clientlst_update_active(clientlst_t*,int,int,int);
 
-int client_visit_store(clientlst_t*,char*,int,char);
+int clientlst_add_store_visit(clientlst_t*,char*,int,char);
 
 int clientlst_draw(clientlst_t*);
 
