@@ -120,12 +120,22 @@ int clientlst_visited_store(clientlst_t* list,unsigned* amount){
 }
 
 int clientlst_draw(clientlst_t* list) {
+    FILE *file = fopen("lista.txt", "w");
+    if (!file){
+		puts("Error opening the file\n");
+		exit(EXIT_FAILURE);
+	}
 	if (!list) return NO_LIST;
 	client_t *aux;
 	for (int i = 0; i < list->size; i++) {
 		aux = clientlst_get(list, i);
 		client_print(aux);
+		fprintf(file,"%d - %10s", aux->id, aux->name);
+        aux->gender == 'm' ? fprintf(file,", masculino. "): fprintf(file,", feminino.");
+        fprintf(file,"%5dEuros, estado", aux->spent);
+        aux->is_active ? fprintf(file," ativo\n") : fprintf(file," inativo\n");
 	}
+	fclose(file);
 	return OK;
 }
 
