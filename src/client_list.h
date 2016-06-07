@@ -40,9 +40,9 @@ int clientlst_rank_lookup(clientlst_t*, char*);
 
 int clientlst_elem_exists(clientlst_t*, char*);
 
-int clientlst_update_active(clientlst_t*,int,int,int);
+int clientlst_update_active(clientlst_t*);
 
-int clientlst_add_store_visit(clientlst_t*, clientactbst_node_t*, char*,int,char);
+int clientlst_add_store_visit(clientlst_t*, clientactbst_node_t*, char*,int,char, char*);
 
 int clientlst_draw(clientlst_t*);
 

@@ -24,6 +24,7 @@ int io_print_dir(const char *path) {
 }
 
 void io_read_purchases(char* path) {
+	struct tm temp_time;
 	if (!io_file_exists(path)) {
 		printf("\"%s\" is not there!", path);
 		return;
@@ -38,12 +39,27 @@ void io_read_purchases(char* path) {
 	int value;
 	int day, month, year;
 	fscanf(file, "%d/%d/%d", &day, &month, &year);
-	today.tm_mday = day;
-	today.tm_mon = month;
-	today.tm_year = year;
+	temp_time.tm_mday = day;
+	temp_time.tm_mon = month-1;
+	temp_time.tm_year = year-1900;
+	temp_time.tm_hour = 0;
+	temp_time.tm_min = 0;
+	temp_time.tm_sec = 0;
+	time_t new_time = mktime(&temp_time);
+	time_t last_time = mktime(&today);
+	if(difftime(new_time,last_time)/ (60 * 60 * 24)<0){
+        printf("Ficheiro com data invalida ou anterior ao do ultimo lido!\n");
+	} else{
+	    today.tm_mday = day;
+        today.tm_mon = month-1;
+        today.tm_year = year-1900;
+	}
+	
 	printf("Data alterada para: %d/%d/%d\n", day, month, year);
+	clientlst_update_active(&client_list);
+	char *last_name = malloc(100*sizeof(char) + 100);
 	while (fscanf(file, " %100[^,]%*c%c%*c%d\n", name, &gender, &value) != EOF) {
-		clientlst_add_store_visit(&client_list, &client_activity_bst, name, value, gender);
+		clientlst_add_store_visit(&client_list, &client_activity_bst,name,value,gender,last_name);
 	}
 	clientlst_draw(&client_list);
 	fclose(file);
