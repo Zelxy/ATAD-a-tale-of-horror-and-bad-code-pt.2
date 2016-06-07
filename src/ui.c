@@ -17,7 +17,7 @@ void ui_menu() {
 			ui_input_menu();
 			break;
 		case 'B':
-			//TODO
+			ui_generate_report();
 			break;
 		case 'C':
 			//TODO
@@ -42,4 +42,17 @@ void ui_input_menu() {
 	} while (!file_name);
 	io_read_purchases(file_name);
 	getchar();
+}
+
+void ui_generate_report() {
+	char file_name[64];
+	char path[128] = DEFAULT_INPUT_DIR;
+	puts("Pick a file name:\n");
+	fgets(file_name, 64, stdin);
+	char* line_break = strchr(file_name, '\n');
+	if (line_break) {
+		*line_break = '\0';
+	}
+	strcat(path, file_name);
+	io_write_report(path);
 }

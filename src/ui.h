@@ -12,5 +12,6 @@
 
 void ui_menu();
 void ui_input_menu();
+void ui_generate_report();
 
 #endif /* UI_H_ */
