@@ -44,6 +44,8 @@ int clientlst_update_active(clientlst_t*);
 
 int clientlst_add_store_visit(clientlst_t*, clientactbst_node_t*, char*,int,char, char*);
 
+int clientlst_visited_store(clientlst_t*,unsigned*);
+
 int clientlst_draw(clientlst_t*);
 
 #endif

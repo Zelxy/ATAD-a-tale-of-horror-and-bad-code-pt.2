@@ -95,6 +95,7 @@ int clientlst_add_store_visit(clientlst_t* list, clientactbst_node_t* activity_b
 			fprintf(stderr, "Inconsistência encontrada na lista de clientes!");
 		*client->last_visit = today;
 		client->spent += value;
+		client->is_active = 1;
 		if(strcmp(last_name,name)){
             client->visits++;
 		}
@@ -103,6 +104,19 @@ int clientlst_add_store_visit(clientlst_t* list, clientactbst_node_t* activity_b
 
 	clientactbst_add_store_visit(&client_activity_bst, name, value);
 	return OK;
+}
+
+int clientlst_visited_store(clientlst_t* list,unsigned* amount){
+    if(!list) return NO_LIST;
+    client_t* aux;
+    *amount = 0;
+    for(int i=0;i<list->size;i++){
+        aux = clientlst_get(list, i);
+        if(aux->is_active){
+            *amount += aux->visits;
+        }
+    }
+    return OK;
 }
 
 int clientlst_draw(clientlst_t* list) {
