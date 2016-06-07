@@ -21,25 +21,25 @@ typedef struct{
 }activity_t;
 
 typedef struct {
-	activity_t* elements;
+	activity_t** elements;
 	int size;
 	int max_size;
-}activity_list_t;
+}activitylst_t;
 
-activity_list_t* activity_list_create();
+activitylst_t* activitylst_create();
 
-int activitylst_destroy(activity_list_t*);
+int activitylst_destroy(activitylst_t*);
 
-int activitylst_add(activity_list_t*, activity_t);
+int activitylst_add(activitylst_t*, activity_t*);
 
-int activitylst_set(activity_list_t*, unsigned, activity_t, activity_t*);
+int activitylst_set(activitylst_t*, unsigned, activity_t*, activity_t*);
 
-int activitylst_get(activity_list_t*, unsigned, activity_t*);
+int activitylst_get(activitylst_t*, unsigned, activity_t*);
 
-int activitylst_size(activity_list_t*, unsigned*);
+int activitylst_size(activitylst_t*, unsigned*);
 
-int activitylst_is_empty(activity_list_t*);
+int activitylst_is_empty(activitylst_t*);
 
-int activitylst_elem_exists(activity_list_t*, activity_t);
+int activitylst_elem_exists(activitylst_t*, activity_t);
 
 #endif

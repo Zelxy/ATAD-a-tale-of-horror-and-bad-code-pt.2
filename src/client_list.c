@@ -1,6 +1,7 @@
 #include "client_list.h"
 
 extern struct tm today;
+clientactbst_node_t client_activity_bst;
 
 clientlst_t* clientlst_create() {
 	clientlst_t* list;
@@ -72,31 +73,35 @@ int clientlst_elem_exists(clientlst_t* list, char* name) {
 	return (clientlst_rank_lookup(list, name) > -1) ? 1 : 0;
 }
 
-int clientlst_update_active(clientlst_t* list, int day, int month, int year) {
+int clientlst_update_active(clientlst_t* list) {
 	if (!list) return NO_LIST;
 	int i;
 	client_t* aux;
 	for (i = 0; i < list->size; i++) {
 		aux = clientlst_get(list, i);
-		client_update_active(aux, day, month, year);
+		client_update_active(aux);
 	}
 	return OK;
 }
 
-int clientlst_add_store_visit(clientlst_t* list, char* name, int value, char gender) {
+int clientlst_add_store_visit(clientlst_t* list, clientactbst_node_t* activity_bst, char* name, int value, char gender, char* last_name) {
 	if (!list) return NO_LIST;
 	int rank = clientlst_rank_lookup(list, name);
 	if (rank == -1) {
 		clientlst_add(list, client_create(name, gender, value));
-		//TODO Add to activity tree;
 	} else {
 		client_t* client = clientlst_get(list, rank);
 		if (!client)
 			fprintf(stderr, "Inconsistência encontrada na lista de clientes!");
 		*client->last_visit = today;
 		client->spent += value;
-		//TODO Add to activity tree;
+		if(strcmp(last_name,name)){
+            client->visits++;
+		}
+        strcpy(last_name,name);
 	}
+
+	clientactbst_add_store_visit(&client_activity_bst, name, value);
 	return OK;
 }
 
